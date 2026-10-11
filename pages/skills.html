@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills Inventory — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Skills Content -->
+        <main class="app-content">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Skills Inventory</h1>
+              <p class="page-title-sub">
+                Manage, calibrate, and track your technical proficiencies across computer science disciplines.
+              </p>
+            </div>
+            <button class="btn btn-primary" id="open-add-skill-modal">
+              <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+              <span>Add Technical Skill</span>
+            </button>
+          </div>
+
+          <!-- Filters & Search Toolbar -->
+          <div class="card" style="margin-bottom: 1.5rem; padding: 1rem;">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+              <!-- Live Search -->
+              <div class="input-icon-wrapper" style="flex: 1; min-width: 240px; max-width: 380px;">
+                <i data-lucide="search" class="input-icon" style="width: 16px; height: 16px;"></i>
+                <input type="text" id="skill-search-input" class="input" placeholder="Search by skill name or notes..." />
+              </div>
+
+              <!-- Filter Dropdowns -->
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Category:</span>
+                  <select id="skill-category-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                    <option value="ALL">All Categories</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Database">Database</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Communication">Communication</option>
+                  </select>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Proficiency:</span>
+                  <select id="skill-proficiency-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                    <option value="ALL">All Levels</option>
+                    <option value="Advanced">Advanced (100%)</option>
+                    <option value="Intermediate">Intermediate (75%)</option>
+                    <option value="Beginner">Beginner (40%)</option>
+                  </select>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Sort By:</span>
+                  <select id="skill-sort-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                    <option value="proficiency-desc">Highest Proficiency</option>
+                    <option value="proficiency-asc">Lowest Proficiency</option>
+                    <option value="name-asc">Name (A - Z)</option>
+                    <option value="name-desc">Name (Z - A)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills Cards Grid -->
+          <div id="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Empty State (Hidden by default) -->
+          <div id="skills-empty-state" class="empty-state" style="display: none; margin-top: 2rem;">
+            <i data-lucide="award" class="empty-state-icon"></i>
+            <h3 class="empty-state-title">No matching skills found</h3>
+            <p class="empty-state-text">
+              Try adjusting your search terms or filters, or add a new technical skill.
+            </p>
+            <button class="btn btn-primary btn-sm" id="empty-add-skill-btn">
+              Add Your First Skill
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Add / Edit Skill Modal -->
+    <div class="modal-backdrop" id="skill-modal">
+      <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="skill-modal-title">
+        <div class="modal-header">
+          <h3 class="modal-title" id="skill-modal-title">Add Technical Skill</h3>
+          <button class="modal-close" id="skill-modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <form id="skill-form">
+          <div class="modal-body">
+            <input type="hidden" id="skill-id-input" />
+
+            <div class="form-group">
+              <label class="form-label required" for="skill-name">Skill Name</label>
+              <input type="text" id="skill-name" class="input" placeholder="e.g. Java, React, PostgreSQL" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="skill-category">Category</label>
+                <select id="skill-category" class="select" required>
+                  <option value="Programming">Programming</option>
+                  <option value="Web Development">Web Development</option>
+                  <option value="Database">Database</option>
+                  <option value="Tools">Tools</option>
+                  <option value="Communication">Communication</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label required" for="skill-proficiency">Proficiency Level</label>
+                <select id="skill-proficiency" class="select" required>
+                  <option value="Beginner">Beginner (Foundations)</option>
+                  <option value="Intermediate" selected>Intermediate (Working Knowledge)</option>
+                  <option value="Advanced">Advanced (Production Fluency)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required" for="skill-status">Learning Status</label>
+              <select id="skill-status" class="select" required>
+                <option value="Active Learning">Active Learning</option>
+                <option value="Mastered">Mastered</option>
+                <option value="Planned">Planned / Future Interest</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="skill-notes">Learning Notes / Project Context</label>
+              <textarea id="skill-notes" class="textarea" rows="3" placeholder="Coursework completed, libraries used, or specific topics studied..."></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="skill-modal-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="skill-modal-save">Save Skill</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/skills.js"></script>
+  </body>
+</html>

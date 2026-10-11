@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Assessment Center — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Assessment Content -->
+        <main class="app-content">
+          <!-- 1. HUB / CONFIGURATION VIEW -->
+          <div id="quiz-hub-view">
+            <div class="page-title-strip">
+              <div>
+                <h1 class="page-title-heading">Technical Assessment Center</h1>
+                <p class="page-title-sub">
+                  Test your engineering knowledge across HTML, CSS, JavaScript, SQL, and CS algorithms.
+                </p>
+              </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="kpi-grid" style="margin-bottom: 1.5rem;">
+              <div class="kpi-card">
+                <span class="kpi-label">Assessment Average</span>
+                <span class="kpi-value" id="hub-avg-score" style="color: var(--color-success);">--%</span>
+                <span class="kpi-meta" id="hub-avg-meta">Based on all completed attempts</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-label">Attempts Completed</span>
+                <span class="kpi-value" id="hub-total-attempts">--</span>
+                <span class="kpi-meta">Diagnostic assessments</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-label">Question Bank</span>
+                <span class="kpi-value" id="hub-total-questions" style="color: var(--accent-blue);">32</span>
+                <span class="kpi-meta">Curated original MCQs</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-label">Passing Benchmark</span>
+                <span class="kpi-value font-mono">75%</span>
+                <span class="kpi-meta">Industry readiness bar</span>
+              </div>
+            </div>
+
+            <!-- Setup Quiz Card -->
+            <div class="card" style="margin-bottom: 1.75rem; background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated)); border-color: var(--border-strong);">
+              <div class="card-header" style="margin-bottom: 1.25rem;">
+                <h3 class="card-title">
+                  <i data-lucide="play-circle" style="width: 20px; height: 20px; color: var(--accent-blue);"></i>
+                  Configure New Technical Assessment
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Instant auto-evaluation & explanations</span>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="quiz-category-select">Domain / Category</label>
+                  <select id="quiz-category-select" class="select">
+                    <option value="ALL">Comprehensive (All Topics)</option>
+                    <option value="JavaScript">JavaScript (ES6+, Closures, Async)</option>
+                    <option value="HTML">HTML5 & Web Semantics</option>
+                    <option value="CSS">CSS3, Flexbox & Grid</option>
+                    <option value="SQL">SQL, Queries & Relational DBs</option>
+                    <option value="General Programming">CS Foundations & Data Structures</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="quiz-difficulty-select">Difficulty Level</label>
+                  <select id="quiz-difficulty-select" class="select">
+                    <option value="ALL">Mixed Difficulty</option>
+                    <option value="Easy">Easy (Foundational)</option>
+                    <option value="Medium">Medium (Core Knowledge)</option>
+                    <option value="Hard">Hard (Senior Concepts)</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="quiz-count-select">Number of Questions</label>
+                  <select id="quiz-count-select" class="select">
+                    <option value="5">5 Questions (Quick Check)</option>
+                    <option value="10" selected>10 Questions (Standard Drill)</option>
+                    <option value="15">15 Questions (Full Diagnostic)</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="quiz-timer-select">Time Limit</label>
+                  <select id="quiz-timer-select" class="select">
+                    <option value="600" selected>10 Minutes (Timed Drill)</option>
+                    <option value="900">15 Minutes (Standard)</option>
+                    <option value="0">Untimed (Self-Paced)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end;">
+                <button class="btn btn-primary btn-lg" id="start-quiz-btn" style="padding: 0.75rem 2rem;">
+                  <i data-lucide="zap" style="width: 18px; height: 18px;"></i>
+                  <span>Start Assessment Now</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz History Table -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="history" style="width: 18px; height: 18px; color: var(--accent-violet);"></i>
+                  Assessment Attempt History
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Saved evaluation log</span>
+              </div>
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Assessment Title</th>
+                      <th>Date</th>
+                      <th>Score</th>
+                      <th>Result</th>
+                      <th class="num-col">Questions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="quiz-history-tbody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. ACTIVE QUIZ RUNNER VIEW (Hidden initially) -->
+          <div id="quiz-runner-view" style="display: none;">
+            <!-- Quiz Active Header -->
+            <div class="card" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-color: var(--accent-blue);">
+              <div>
+                <h2 id="runner-title" style="font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.2rem;">
+                  Technical Assessment in Progress
+                </h2>
+                <div class="meta-list">
+                  <span id="runner-progress-text">Question 1 of 10</span>
+                  <span class="meta-separator">·</span>
+                  <span id="runner-meta-category">JavaScript</span>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <!-- Countdown Timer -->
+                <div id="runner-timer-box" style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-canvas); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-strong);">
+                  <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--color-warning);"></i>
+                  <span id="runner-timer-display" class="font-mono tabular-nums" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">
+                    10:00
+                  </span>
+                </div>
+
+                <button class="btn btn-primary" id="runner-submit-btn">
+                  <span>Submit Assessment</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz Runner Split Layout -->
+            <div style="display: grid; grid-template-columns: 1fr 280px; gap: 1.5rem;" id="runner-layout-grid">
+              <!-- Left: Question & Options Card -->
+              <div class="card" style="padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                  <span class="status-indicator status-in-progress" id="runner-q-category">
+                    JavaScript
+                  </span>
+                  <span class="text-muted" style="font-size: 0.75rem;" id="runner-q-difficulty">
+                    Medium
+                  </span>
+                </div>
+
+                <h3 id="runner-q-text" style="font-size: 1.25rem; line-height: 1.5; color: var(--text-primary); margin-bottom: 1.75rem;">
+                  Question prompt loading...
+                </h3>
+
+                <!-- Options List -->
+                <div id="runner-options-list" style="display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 2rem;">
+                  <!-- Dynamically populated options -->
+                </div>
+
+                <!-- Bottom Question Navigation Controls -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+                  <button class="btn btn-secondary" id="runner-prev-btn">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    <span>Previous</span>
+                  </button>
+                  <button class="btn btn-outline btn-sm" id="runner-flag-btn">
+                    <i data-lucide="flag" style="width: 14px; height: 14px;"></i>
+                    <span>Flag for Review</span>
+                  </button>
+                  <button class="btn btn-secondary" id="runner-next-btn">
+                    <span>Next Question</span>
+                    <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right: Question Palette -->
+              <div class="card">
+                <div class="card-header" style="margin-bottom: 1rem;">
+                  <h4 style="font-size: 0.9375rem; color: var(--text-primary);">Question Palette</h4>
+                </div>
+                
+                <div id="runner-palette-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 1.5rem;">
+                  <!-- Dynamically populated number buttons -->
+                </div>
+
+                <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.35rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-success);"></div>
+                    <span>Answered</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-warning);"></div>
+                    <span>Flagged for Review</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--bg-surface-elevated); border: 1px solid var(--border-strong);"></div>
+                    <span>Unanswered</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. RESULTS & REVIEW VIEW (Hidden initially) -->
+          <div id="quiz-results-view" style="display: none;">
+            <div class="card" style="text-align: center; padding: 3rem 1.5rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));">
+              <span style="font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);">
+                Assessment Results
+              </span>
+              <div id="results-score-dial" class="score-circle-number" style="font-size: 4rem; margin: 0.5rem 0; color: var(--color-success);">
+                90%
+              </div>
+              <h2 id="results-verdict-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                Excellent Performance!
+              </h2>
+              <p id="results-verdict-sub" style="font-size: 0.9375rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 1.5rem;">
+                You correctly answered 9 out of 10 questions. Your score has been applied to your Career Readiness index.
+              </p>
+
+              <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" id="results-retake-btn">
+                  <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+                  <span>Take Another Assessment</span>
+                </button>
+                <button class="btn btn-secondary" id="results-back-btn">
+                  <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                  <span>Back to Assessment Hub</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Detailed Question-by-Question Review Accordion -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="file-text" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                  Detailed Question Review & Explanations
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Verified rationale for every question</span>
+              </div>
+              <div id="results-review-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Dynamically populated review questions -->
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/assessments.js"></script>
+  </body>
+</html>

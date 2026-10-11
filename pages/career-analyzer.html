@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Skill Gap Analyzer — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Career Analyzer Content -->
+        <main class="app-content">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Career Skill Gap Analyzer</h1>
+              <p class="page-title-sub">
+                Benchmark your current technical profile against industry standard roles to pinpoint exact gaps.
+              </p>
+            </div>
+            <button id="set-target-role-btn" class="btn btn-outline">
+              <i data-lucide="target" style="width: 16px; height: 16px;"></i>
+              <span>Set as Active Career Goal</span>
+            </button>
+          </div>
+
+          <!-- Role Selection Tabs Bar -->
+          <div class="card" style="margin-bottom: 1.5rem; padding: 0.75rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+              <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                Select Target Career Path:
+              </span>
+              <div class="filter-tabs" id="role-tabs-container">
+                <!-- Dynamically populated 5 career path tabs -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Overview Card -->
+          <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));">
+            <div style="display: grid; grid-template-columns: 1fr 240px; gap: 2rem; align-items: center;" id="role-overview-grid">
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                  <h2 id="role-title" style="font-size: 1.5rem; color: var(--text-primary);">Full Stack Developer</h2>
+                  <span id="role-active-badge" class="status-indicator status-active" style="display: none;">
+                    Current Active Goal
+                  </span>
+                </div>
+                <div class="meta-list" style="margin-bottom: 0.75rem;">
+                  <span id="role-category">Software Engineering</span>
+                  <span class="meta-separator">·</span>
+                  <span>Est. Starting Salary: <strong id="role-salary" class="font-mono text-primary">$85,000 - $110,000</strong></span>
+                </div>
+                <p id="role-description" style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; max-width: 780px;">
+                  Deliver end-to-end features spanning client web frontends, secure backend REST APIs, relational schemas, and containerized deployments.
+                </p>
+              </div>
+
+              <!-- Match Dial -->
+              <div style="text-align: center; padding: 1.25rem; background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">
+                  Role Skill Match
+                </span>
+                <div id="role-match-percentage" class="score-circle-number" style="font-size: 2.75rem; margin: 0.25rem 0;">
+                  83%
+                </div>
+                <span id="role-match-status" class="status-indicator status-active">
+                  High Alignment
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-Column Gap Classification Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.75rem;">
+            <!-- Column 1: Matching Skills -->
+            <div class="card" style="border-top: 3px solid var(--color-success);">
+              <div class="card-header" style="margin-bottom: 0.75rem;">
+                <h3 class="card-title" style="font-size: 1rem; color: var(--color-success);">
+                  <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                  Matching Competencies (<span id="count-matching">0</span>)
+                </h3>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Skills where your recorded proficiency meets or exceeds requirement thresholds.
+              </p>
+              <div id="matching-skills-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Column 2: Partial Gaps -->
+            <div class="card" style="border-top: 3px solid var(--accent-blue);">
+              <div class="card-header" style="margin-bottom: 0.75rem;">
+                <h3 class="card-title" style="font-size: 1rem; color: var(--accent-blue);">
+                  <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i>
+                  Proficiency Gaps (<span id="count-partial">0</span>)
+                </h3>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Skills you possess that need further leveling up to meet target role standards.
+              </p>
+              <div id="partial-skills-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Column 3: Missing Skills -->
+            <div class="card" style="border-top: 3px solid var(--color-danger);">
+              <div class="card-header" style="margin-bottom: 0.75rem;">
+                <h3 class="card-title" style="font-size: 1rem; color: var(--color-danger);">
+                  <i data-lucide="x-circle" style="width: 16px; height: 16px;"></i>
+                  Missing Prerequisites (<span id="count-missing">0</span>)
+                </h3>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Essential role requirements currently absent from your skills inventory.
+              </p>
+              <div id="missing-skills-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Actionable Recommendations & Direct Roadmap Planner -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i data-lucide="zap" style="width: 18px; height: 18px; color: var(--color-warning);"></i>
+                Tailored Learning Actions to Close These Gaps
+              </h3>
+              <span class="text-muted" style="font-size: 0.75rem;">Click 'Add to Roadmap' to schedule study tasks</span>
+            </div>
+            <div id="gap-recommendations-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamically populated recommendations with 'Add to Roadmap' buttons -->
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Page Specific Script -->
+    <script type="module" src="../js/pages/career-analyzer.js"></script>
+  </body>
+</html>

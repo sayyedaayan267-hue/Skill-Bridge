@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship Explorer & Application Pipeline — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Internship Content -->
+        <main class="app-content">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Internship Explorer & Pipeline</h1>
+              <p class="page-title-sub">
+                Discover curated sample student internships and track your interview pipeline from application to offer.
+              </p>
+            </div>
+
+            <div class="filter-tabs" id="internship-view-tabs">
+              <button class="filter-tab active" id="tab-all-listings">
+                <i data-lucide="list" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                <span>Opportunities</span>
+              </button>
+              <button class="filter-tab" id="tab-pipeline-view">
+                <i data-lucide="columns" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                <span>Pipeline Stages</span>
+              </button>
+              <button class="filter-tab" id="tab-saved-view">
+                <i data-lucide="bookmark" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                <span>Bookmarked (<span id="bookmark-count-badge">0</span>)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Capstone Notice Banner -->
+          <div style="padding: 0.625rem 1rem; background-color: var(--accent-blue-subtle); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-sm); font-size: 0.775rem; color: var(--text-secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="info" style="width: 16px; height: 16px; color: var(--accent-blue); flex-shrink: 0;"></i>
+            <span>
+              <strong>Sample Demonstration Opportunities:</strong> All postings are curated illustrative data models for academic project demonstration. External links are simulated.
+            </span>
+          </div>
+
+          <!-- Application Pipeline KPI Strip -->
+          <div class="kpi-grid" style="margin-bottom: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+            <div class="kpi-card" style="padding: 1rem;">
+              <span class="kpi-label">Saved</span>
+              <span class="kpi-value font-mono" id="pipeline-count-saved" style="font-size: 1.5rem;">0</span>
+            </div>
+            <div class="kpi-card" style="padding: 1rem;">
+              <span class="kpi-label">Applied</span>
+              <span class="kpi-value font-mono" id="pipeline-count-applied" style="font-size: 1.5rem; color: var(--accent-blue);">0</span>
+            </div>
+            <div class="kpi-card" style="padding: 1rem;">
+              <span class="kpi-label">Interview</span>
+              <span class="kpi-value font-mono" id="pipeline-count-interview" style="font-size: 1.5rem; color: var(--color-warning);">0</span>
+            </div>
+            <div class="kpi-card" style="padding: 1rem;">
+              <span class="kpi-label">Offered</span>
+              <span class="kpi-value font-mono" id="pipeline-count-offered" style="font-size: 1.5rem; color: var(--color-success);">0</span>
+            </div>
+            <div class="kpi-card" style="padding: 1rem;">
+              <span class="kpi-label">Archived / Rejected</span>
+              <span class="kpi-value font-mono" id="pipeline-count-rejected" style="font-size: 1.5rem; color: var(--text-muted);">0</span>
+            </div>
+          </div>
+
+          <!-- VIEW 1: OPPORTUNITIES LIST / CARDS -->
+          <div id="listings-view-container">
+            <!-- Search & Filters Toolbar -->
+            <div class="card" style="margin-bottom: 1.5rem; padding: 1rem;">
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                <!-- Search -->
+                <div class="input-icon-wrapper" style="flex: 1; min-width: 240px; max-width: 380px;">
+                  <i data-lucide="search" class="input-icon" style="width: 16px; height: 16px;"></i>
+                  <input type="text" id="internship-search-input" class="input" placeholder="Search by role, company, or skills..." />
+                </div>
+
+                <!-- Filters -->
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Work Mode:</span>
+                    <select id="internship-workmode-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                      <option value="ALL">All Modes</option>
+                      <option value="Remote">Remote</option>
+                      <option value="Hybrid">Hybrid</option>
+                      <option value="On-site">On-site</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Category:</span>
+                    <select id="internship-category-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                      <option value="ALL">All Categories</option>
+                      <option value="Full Stack">Full Stack</option>
+                      <option value="Backend">Backend</option>
+                      <option value="Frontend">Frontend</option>
+                      <option value="DevOps & Cloud">DevOps & Cloud</option>
+                      <option value="QA & Testing">QA & Testing</option>
+                      <option value="Data">Data</option>
+                      <option value="Security">Security</option>
+                      <option value="Systems">Systems</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Sort By:</span>
+                    <select id="internship-sort-filter" class="select" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8125rem;">
+                      <option value="deadline-asc">Deadline (Earliest First)</option>
+                      <option value="deadline-desc">Deadline (Latest First)</option>
+                      <option value="company-asc">Company (A - Z)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Internship Grid -->
+            <div id="internships-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem;">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="internships-empty-state" class="empty-state" style="display: none; margin-top: 2rem;">
+              <i data-lucide="briefcase" class="empty-state-icon"></i>
+              <h3 class="empty-state-title">No matching internship listings</h3>
+              <p class="empty-state-text">
+                Try widening your search terms, work mode filter, or category selection.
+              </p>
+            </div>
+          </div>
+
+          <!-- VIEW 2: PIPELINE STAGES (KANBAN OVERVIEW) -->
+          <div id="pipeline-view-container" style="display: none;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; align-items: flex-start;">
+              <!-- Saved Column -->
+              <div class="card" style="padding: 1rem; background: var(--bg-surface-elevated);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">
+                  <strong style="font-size: 0.875rem; color: var(--text-secondary);">Saved Opportunities</strong>
+                  <span class="status-indicator status-planned" id="stage-count-saved">0</span>
+                </div>
+                <div id="stage-list-saved" style="display: flex; flex-direction: column; gap: 0.75rem; min-height: 200px;"></div>
+              </div>
+
+              <!-- Applied Column -->
+              <div class="card" style="padding: 1rem; background: var(--bg-surface-elevated);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">
+                  <strong style="font-size: 0.875rem; color: var(--accent-blue);">Application Sent</strong>
+                  <span class="status-indicator status-in-progress" id="stage-count-applied">0</span>
+                </div>
+                <div id="stage-list-applied" style="display: flex; flex-direction: column; gap: 0.75rem; min-height: 200px;"></div>
+              </div>
+
+              <!-- Interview Column -->
+              <div class="card" style="padding: 1rem; background: var(--bg-surface-elevated);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">
+                  <strong style="font-size: 0.875rem; color: var(--color-warning);">Interview Stage</strong>
+                  <span class="status-indicator status-pending" id="stage-count-interview">0</span>
+                </div>
+                <div id="stage-list-interview" style="display: flex; flex-direction: column; gap: 0.75rem; min-height: 200px;"></div>
+              </div>
+
+              <!-- Offered Column -->
+              <div class="card" style="padding: 1rem; background: var(--bg-surface-elevated);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">
+                  <strong style="font-size: 0.875rem; color: var(--color-success);">Job Offer Received</strong>
+                  <span class="status-indicator status-active" id="stage-count-offered">0</span>
+                </div>
+                <div id="stage-list-offered" style="display: flex; flex-direction: column; gap: 0.75rem; min-height: 200px;"></div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/internships.js"></script>
+  </body>
+</html>

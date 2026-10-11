@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Demonstration Console — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Admin Content -->
+        <main class="app-content">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Admin Demonstration Console</h1>
+              <p class="page-title-sub">
+                Manage platform datasets including sample internship postings and the technical MCQ question bank.
+              </p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="filter-tabs">
+              <button class="filter-tab active" id="admin-tab-internships">
+                <i data-lucide="briefcase" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                <span>Internships (<span id="admin-count-internships">0</span>)</span>
+              </button>
+              <button class="filter-tab" id="admin-tab-questions">
+                <i data-lucide="help-circle" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                <span>MCQ Questions (<span id="admin-count-questions">0</span>)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Capstone Disclaimer Callout -->
+          <div style="padding: 0.75rem 1.25rem; background-color: var(--accent-violet-subtle); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: var(--radius-sm); font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="shield-alert" style="width: 20px; height: 20px; color: var(--accent-violet); flex-shrink: 0;"></i>
+            <span>
+              <strong>Capstone Architecture Demonstration:</strong> This module provides full CRUD capabilities over the platform's simulated data models. In a multi-user production system, this interface would be secured by backend RBAC and database access tokens.
+            </span>
+          </div>
+
+          <!-- TAB 1: MANAGE INTERNSHIPS -->
+          <div id="admin-internships-panel">
+            <div class="card" style="margin-bottom: 1.5rem; padding: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div class="input-icon-wrapper" style="flex: 1; max-width: 360px;">
+                  <i data-lucide="search" class="input-icon" style="width: 16px; height: 16px;"></i>
+                  <input type="text" id="admin-internship-search" class="input" placeholder="Search internships by company or role..." />
+                </div>
+
+                <button class="btn btn-primary" id="open-add-internship-modal">
+                  <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                  <span>Add Sample Internship</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Role Title</th>
+                    <th>Location / Mode</th>
+                    <th>Stipend</th>
+                    <th>Deadline</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-internships-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 2: MANAGE QUIZ QUESTIONS -->
+          <div id="admin-questions-panel" style="display: none;">
+            <div class="card" style="margin-bottom: 1.5rem; padding: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; gap: 0.75rem; flex: 1; max-width: 500px;">
+                  <div class="input-icon-wrapper" style="flex: 1;">
+                    <i data-lucide="search" class="input-icon" style="width: 16px; height: 16px;"></i>
+                    <input type="text" id="admin-question-search" class="input" placeholder="Search questions..." />
+                  </div>
+                  <select id="admin-question-category-filter" class="select" style="width: auto;">
+                    <option value="ALL">All Categories</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="SQL">SQL</option>
+                    <option value="General Programming">General Programming</option>
+                  </select>
+                </div>
+
+                <button class="btn btn-primary" id="open-add-question-modal">
+                  <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                  <span>Add MCQ Question</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Domain</th>
+                    <th>Diff.</th>
+                    <th>Question Prompt</th>
+                    <th>Correct Answer</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-questions-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modal: Add / Edit Internship -->
+    <div class="modal-backdrop" id="admin-internship-modal">
+      <div class="modal-container" style="max-width: 600px;" role="dialog" aria-modal="true" aria-labelledby="adm-int-title">
+        <div class="modal-header">
+          <h3 class="modal-title" id="adm-int-title">Add Sample Internship</h3>
+          <button class="modal-close" id="adm-int-close" aria-label="Close modal">&times;</button>
+        </div>
+        <form id="admin-internship-form">
+          <div class="modal-body">
+            <input type="hidden" id="adm-int-id" />
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-company">Company Name</label>
+                <input type="text" id="adm-int-company" class="input" placeholder="e.g. Acme Tech" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-role">Role Title</label>
+                <input type="text" id="adm-int-role" class="input" placeholder="e.g. Software Engineer Intern" required />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-location">Location</label>
+                <input type="text" id="adm-int-location" class="input" placeholder="e.g. Austin, TX" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-workmode">Work Mode</label>
+                <select id="adm-int-workmode" class="select" required>
+                  <option value="Remote">Remote</option>
+                  <option value="Hybrid" selected>Hybrid</option>
+                  <option value="On-site">On-site</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-category">Category</label>
+                <select id="adm-int-category" class="select" required>
+                  <option value="Full Stack">Full Stack</option>
+                  <option value="Backend">Backend</option>
+                  <option value="Frontend">Frontend</option>
+                  <option value="DevOps & Cloud">DevOps & Cloud</option>
+                  <option value="QA & Testing">QA & Testing</option>
+                  <option value="Data">Data</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="adm-int-stipend">Stipend Range</label>
+                <input type="text" id="adm-int-stipend" class="input" placeholder="e.g. $40 - $45 / hour" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-skills">Required Skills (Comma separated)</label>
+                <input type="text" id="adm-int-skills" class="input" placeholder="e.g. Java, Spring, SQL" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label required" for="adm-int-deadline">Application Deadline</label>
+                <input type="date" id="adm-int-deadline" class="input" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label required" for="adm-int-desc">Opportunity Description</label>
+              <textarea id="adm-int-desc" class="textarea" rows="3" placeholder="Brief outline of team and project responsibilities..." required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="adm-int-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Listing</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Add / Edit Question -->
+    <div class="modal-backdrop" id="admin-question-modal">
+      <div class="modal-container" style="max-width: 640px;" role="dialog" aria-modal="true" aria-labelledby="adm-q-title">
+        <div class="modal-header">
+          <h3 class="modal-title" id="adm-q-title">Add MCQ Question</h3>
+          <button class="modal-close" id="adm-q-close" aria-label="Close modal">&times;</button>
+        </div>
+        <form id="admin-question-form">
+          <div class="modal-body">
+            <input type="hidden" id="adm-q-id" />
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label required" for="adm-q-category">Topic Domain</label>
+                <select id="adm-q-category" class="select" required>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="HTML">HTML</option>
+                  <option value="CSS">CSS</option>
+                  <option value="SQL">SQL</option>
+                  <option value="General Programming">General Programming</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label required" for="adm-q-difficulty">Difficulty</label>
+                <select id="adm-q-difficulty" class="select" required>
+                  <option value="Easy">Easy</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required" for="adm-q-text">Question Prompt</label>
+              <textarea id="adm-q-text" class="textarea" rows="2" placeholder="e.g. Which keyword creates a block-scoped variable?" required></textarea>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem;">
+              <label class="form-label required">Answer Options (Select correct radio)</label>
+              
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="correctOpt" value="0" checked />
+                <input type="text" id="adm-q-opt-0" class="input" placeholder="Option A" required />
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="correctOpt" value="1" />
+                <input type="text" id="adm-q-opt-1" class="input" placeholder="Option B" required />
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="correctOpt" value="2" />
+                <input type="text" id="adm-q-opt-2" class="input" placeholder="Option C" required />
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="radio" name="correctOpt" value="3" />
+                <input type="text" id="adm-q-opt-3" class="input" placeholder="Option D" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label required" for="adm-q-explanation">Technical Explanation</label>
+              <textarea id="adm-q-explanation" class="textarea" rows="2" placeholder="Explain why this option is correct for educational review..." required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="adm-q-cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Question</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/admin.js"></script>
+  </body>
+</html>

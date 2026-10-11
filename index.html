@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillBridge — Student Career & Skill Development Platform</title>
+    <meta name="description" content="Empowering college students and fresh graduates to bridge the gap between academic coursework and industry career readiness through automated skill assessments, project portfolios, and curated internships." />
+    <meta property="og:title" content="SkillBridge — Student Career & Skill Development Platform" />
+    <meta property="og:description" content="Assess skills, identify target career gaps, build project portfolios, practice technical MCQs, and track learning progress." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/landing.css" />
+    
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <!-- Top Bar Contract: Zone 1 (Brand) - Zone 2 (4-5 Nav Links) - Zone 3 (1 Action) -->
+    <header class="landing-header">
+      <div class="container landing-nav-wrapper">
+        <a href="./index.html" class="brand-logo">
+          <div class="brand-icon">
+            <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>SkillBridge</span>
+        </a>
+
+        <nav class="landing-nav-links">
+          <a href="#features" class="landing-nav-link">Features</a>
+          <a href="#how-it-works" class="landing-nav-link">How It Works</a>
+          <a href="#career-paths" class="landing-nav-link">Career Paths</a>
+          <a href="#faq" class="landing-nav-link">FAQ</a>
+        </nav>
+
+        <div class="landing-nav-actions">
+          <button class="theme-toggle-btn" id="landing-theme-toggle" aria-label="Toggle theme mode" title="Toggle theme">
+            <i data-lucide="sun" class="theme-toggle-icon" style="width: 16px; height: 16px;"></i>
+          </button>
+          <a href="./pages/login.html" class="btn btn-outline btn-sm">Sign In</a>
+          <a href="./pages/dashboard.html" class="btn btn-primary btn-sm">Launch App</a>
+          <button class="mobile-menu-btn" id="landing-mobile-menu-btn" aria-label="Open mobile menu">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="landing-mobile-drawer" style="display: none; background: var(--bg-surface); padding: 1.5rem; border-bottom: 1px solid var(--border-subtle);">
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <a href="#features" class="landing-nav-link">Features</a>
+        <a href="#how-it-works" class="landing-nav-link">How It Works</a>
+        <a href="#career-paths" class="landing-nav-link">Career Paths</a>
+        <a href="#faq" class="landing-nav-link">FAQ</a>
+        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+          <a href="./pages/login.html" class="btn btn-outline btn-sm w-full">Sign In</a>
+          <a href="./pages/dashboard.html" class="btn btn-primary btn-sm w-full">Launch App</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-glow"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+            <span>College Full Stack Java (FSJ) Capstone Project</span>
+          </div>
+
+          <h1 class="hero-title hero-title-gradient">
+            Build Skills. Prove Your Worth. Launch Your Career.
+          </h1>
+
+          <p class="hero-subtitle">
+            The all-in-one career readiness platform for computer science students and fresh graduates. Diagnose skill gaps for target roles, showcase validated projects, pass technical quizzes, and manage internship pipelines.
+          </p>
+
+          <div class="hero-actions">
+            <a href="./pages/dashboard.html" class="btn btn-primary btn-lg">
+              <span>Go to Live Dashboard</span>
+              <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </a>
+            <a href="#features" class="btn btn-secondary btn-lg">
+              <i data-lucide="compass" style="width: 18px; height: 18px;"></i>
+              <span>Explore Features</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product Dashboard Preview -->
+        <div class="hero-preview">
+          <div class="preview-browser-bar">
+            <div class="preview-dots">
+              <div class="preview-dot" style="background-color: #ef4444;"></div>
+              <div class="preview-dot" style="background-color: #f59e0b;"></div>
+              <div class="preview-dot" style="background-color: #10b981;"></div>
+            </div>
+            <div class="preview-address-bar">
+              https://skillbridge.app/pages/dashboard.html
+            </div>
+          </div>
+          <div class="preview-content">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+              <div class="kpi-card" style="padding: 1rem;">
+                <span class="kpi-label">Career Readiness</span>
+                <span class="kpi-value" style="color: var(--accent-blue); font-size: 1.5rem;">84/100</span>
+                <span class="kpi-meta"><i data-lucide="trending-up" style="width: 12px; height: 12px;"></i> Job Ready Tier</span>
+              </div>
+              <div class="kpi-card" style="padding: 1rem;">
+                <span class="kpi-label">Skills Logged</span>
+                <span class="kpi-value" style="font-size: 1.5rem;">9 Skills</span>
+                <span class="kpi-meta"><i data-lucide="check" style="width: 12px; height: 12px;"></i> 4 Mastered</span>
+              </div>
+              <div class="kpi-card" style="padding: 1rem;">
+                <span class="kpi-label">Projects Built</span>
+                <span class="kpi-value" style="font-size: 1.5rem;">6 Repos</span>
+                <span class="kpi-meta"><i data-lucide="code" style="width: 12px; height: 12px;"></i> 3 Completed</span>
+              </div>
+              <div class="kpi-card" style="padding: 1rem;">
+                <span class="kpi-label">Quiz Average</span>
+                <span class="kpi-value" style="font-size: 1.5rem; color: var(--color-success);">85%</span>
+                <span class="kpi-meta"><i data-lucide="award" style="width: 12px; height: 12px;"></i> 25 MCQs Completed</span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem;">
+              <div style="background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <strong style="font-size: 0.875rem;">Target Role Skill Gap: Full Stack Developer</strong>
+                  <span class="status-indicator status-active">83% Match</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.775rem;">
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                      <span>JavaScript & React</span>
+                      <span style="color: var(--color-success);">Match · Advanced</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                      <span>Java & Spring Boot</span>
+                      <span style="color: var(--accent-blue);">Partial · Intermediate</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                      <span>Docker & Containers</span>
+                      <span style="color: var(--color-warning);">Gap · Beginner</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill progress-fill-warning" style="width: 35%;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <strong style="font-size: 0.875rem;">Upcoming Roadmap Goal</strong>
+                  <p style="font-size: 0.775rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                    Build Docker multi-stage build for React & Java microservices.
+                  </p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-muted);">
+                  <span>Due in 4 days</span>
+                  <a href="./pages/roadmap.html" class="text-accent" style="font-weight: 600;">Open Roadmap &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-padding" id="features" style="background-color: var(--bg-canvas);">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Core Architecture</div>
+          <h2 class="section-title">Everything a CS Student Needs to Land Top Roles</h2>
+          <p class="section-description">
+            SkillBridge replaces scattered spreadsheets and bookmarked job links with an integrated career intelligence suite.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i data-lucide="compass" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="feature-title">Career Skill Gap Analyzer</h3>
+            <p style="font-size: 0.875rem;">
+              Compare your recorded proficiencies against 5 curated software roles (Frontend, Java, Full Stack, Data Analyst, QA). Uncover exact missing requirements before applying.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i data-lucide="folder-git-2" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="feature-title">Project Portfolio Showcase</h3>
+            <p style="font-size: 0.875rem;">
+              Catalog your repositories, live deployment links, architecture highlights, and tech stacks. Generate a recruiter-ready portfolio view with one click.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i data-lucide="check-square" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="feature-title">Technical Assessment Center</h3>
+            <p style="font-size: 0.875rem;">
+              Take timed technical MCQs across HTML, CSS, JavaScript, SQL, and CS algorithms. Receive instant score breakdowns, answer rationales, and history tracking.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i data-lucide="briefcase" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="feature-title">Internship Explorer & Pipeline</h3>
+            <p style="font-size: 0.875rem;">
+              Explore 10+ realistic internship listings with stipend ranges, required skill tags, deadlines, and a dedicated status tracker (Saved, Applied, Interview, Offer).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section-padding" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Structured Path to Employment</div>
+          <h2 class="section-title">How SkillBridge Accelerates Your Career</h2>
+          <p class="section-description">
+            A four-step systematic workflow designed to turn academic coursework into industry job offers.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01.</div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Audit Current Skills</h3>
+            <p style="font-size: 0.875rem;">
+              Catalog programming languages, database systems, and dev tools with self-assessed proficiency ratings from Beginner to Advanced.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02.</div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Diagnose Target Gaps</h3>
+            <p style="font-size: 0.875rem;">
+              Select a target role like Java or Full Stack Developer to reveal missing requirements and auto-populate actionable roadmap milestones.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03.</div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Validate Competency</h3>
+            <p style="font-size: 0.875rem;">
+              Complete timed MCQs and build tangible portfolio projects with GitHub repos and live previews to prove your technical depth.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">04.</div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Secure Opportunities</h3>
+            <p style="font-size: 0.875rem;">
+              Target curated internship opportunities where your skill alignment is highest, and monitor interview stages from your personal pipeline.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supported Career Paths -->
+    <section class="section-padding" id="career-paths" style="background-color: var(--bg-canvas);">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Target Roles</div>
+          <h2 class="section-title">Pre-Configured Software Career Blueprints</h2>
+          <p class="section-description">
+            Calibrate your preparation against industry standards for the five most in-demand entry-level software engineering tracks.
+          </p>
+        </div>
+
+        <div class="career-paths-grid">
+          <div class="career-path-card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Frontend Developer</h3>
+            <div class="meta-list" style="margin-bottom: 0.75rem;">
+              <span>Web Engineering</span>
+              <span class="meta-separator">·</span>
+              <span class="tabular-nums font-mono">$78k - $95k</span>
+            </div>
+            <p style="font-size: 0.8125rem; margin-bottom: 1rem;">
+              Core focus on HTML5, CSS3, ES6+ JavaScript, React component state, and responsive accessibility.
+            </p>
+            <a href="./pages/career-analyzer.html?role=role-frontend" class="btn btn-outline btn-sm w-full">Analyze Match &rarr;</a>
+          </div>
+
+          <div class="career-path-card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Java Developer</h3>
+            <div class="meta-list" style="margin-bottom: 0.75rem;">
+              <span>Backend Engineering</span>
+              <span class="meta-separator">·</span>
+              <span class="tabular-nums font-mono">$82k - $105k</span>
+            </div>
+            <p style="font-size: 0.8125rem; margin-bottom: 1rem;">
+              Core focus on Object-Oriented Java, Spring Boot microservices, SQL transactions, and REST APIs.
+            </p>
+            <a href="./pages/career-analyzer.html?role=role-java" class="btn btn-outline btn-sm w-full">Analyze Match &rarr;</a>
+          </div>
+
+          <div class="career-path-card" style="border-color: var(--accent-blue);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+              <h3 style="font-size: 1.1rem;">Full Stack Developer</h3>
+              <span class="status-indicator status-active" style="font-size: 0.65rem;">Top Demand</span>
+            </div>
+            <div class="meta-list" style="margin-bottom: 0.75rem;">
+              <span>Software Engineering</span>
+              <span class="meta-separator">·</span>
+              <span class="tabular-nums font-mono">$85k - $110k</span>
+            </div>
+            <p style="font-size: 0.8125rem; margin-bottom: 1rem;">
+              End-to-end fluency spanning modern React, Java/Node backend endpoints, and PostgreSQL schemas.
+            </p>
+            <a href="./pages/career-analyzer.html?role=role-fullstack" class="btn btn-primary btn-sm w-full">Analyze Match &rarr;</a>
+          </div>
+
+          <div class="career-path-card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Data Analyst</h3>
+            <div class="meta-list" style="margin-bottom: 0.75rem;">
+              <span>Data & BI</span>
+              <span class="meta-separator">·</span>
+              <span class="tabular-nums font-mono">$72k - $90k</span>
+            </div>
+            <p style="font-size: 0.8125rem; margin-bottom: 1rem;">
+              Complex SQL aggregate queries, Python data analysis, business metric dashboards, and statistics.
+            </p>
+            <a href="./pages/career-analyzer.html?role=role-data-analyst" class="btn btn-outline btn-sm w-full">Analyze Match &rarr;</a>
+          </div>
+
+          <div class="career-path-card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Software Testing Engineer</h3>
+            <div class="meta-list" style="margin-bottom: 0.75rem;">
+              <span>Quality Engineering</span>
+              <span class="meta-separator">·</span>
+              <span class="tabular-nums font-mono">$70k - $88k</span>
+            </div>
+            <p style="font-size: 0.8125rem; margin-bottom: 1rem;">
+              Automated Selenium suites, JUnit regression suites, bug lifecycle documentation, and SQL validation.
+            </p>
+            <a href="./pages/career-analyzer.html?role=role-testing" class="btn btn-outline btn-sm w-full">Analyze Match &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials (Explicitly Labeled Illustrative Demo Content) -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Success Stories</div>
+          <h2 class="section-title">Student Experiences with SkillBridge</h2>
+          <p class="section-description">
+            See how undergraduates use SkillBridge to structure their final-year portfolios and interview prep.
+          </p>
+        </div>
+        <div class="demo-banner">
+          [Illustrative Demonstration Case Studies — Fictional Student Scenarios for Capstone Presentation]
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "The Skill Gap Analyzer made me realize I was missing indexing and database optimization for Java backend roles. Closing that gap on my learning roadmap helped me secure a backend internship with NextGen Cloud."
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">AR</div>
+              <div>
+                <div class="testimonial-name">Alex Rivera</div>
+                <div class="testimonial-role">CS Senior, State University · Java Developer Track</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Being able to link my GitHub repositories, live demo URLs, and assessment scores all inside a single portfolio preview gave recruiters immediate tangible proof of my Full Stack abilities."
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));">SM</div>
+              <div>
+                <div class="testimonial-name">Sarah Mitchell</div>
+                <div class="testimonial-role">B.Tech 4th Year · Full Stack Software Engineer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "The 30+ technical MCQs with in-depth explanations were perfect for brushing up on closures, SQL group-bys, and CSS specificity before my campus placement technical interview rounds."
+            </p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--accent-cyan), var(--color-success));">KP</div>
+              <div>
+                <div class="testimonial-name">Kavita Patel</div>
+                <div class="testimonial-role">Computer Engineering Senior · QA & Testing Specialist</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding" id="faq" style="background-color: var(--bg-canvas);">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Common Inquiries</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-description">
+            Learn more about SkillBridge's architecture, readiness score formulas, and data storage.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How is the Career Readiness Score calculated?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px; height: 18px;"></i>
+            </button>
+            <div class="faq-answer">
+              The overall score is calculated using a transparent weighted formula: 40% Target Role Skill Match, 25% Project Portfolio Quality, 20% Technical Assessment Performance, and 15% Learning Roadmap Completion. Each component produces a score between 0 and 100, and components without logged data are clearly labeled as unassessed rather than defaulting to arbitrary numbers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Where is my application data stored?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px; height: 18px;"></i>
+            </button>
+            <div class="faq-answer">
+              All records (skills, projects, quiz scores, internships, and roadmap tasks) are persisted locally in your browser's LocalStorage under versioned schema keys. You can export a complete JSON backup or reset to factory demo data anytime from the Settings page.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can I customize the career paths or add new skills?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px; height: 18px;"></i>
+            </button>
+            <div class="faq-answer">
+              Yes! You can add, edit, and delete any skills across Programming, Web Development, Database, Tools, and Communication. You can also use the Admin Hub to add custom quiz questions and internship opportunities.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is this suitable for a college Full Stack Java (FSJ) presentation?</span>
+              <i data-lucide="chevron-down" class="faq-icon" style="width: 18px; height: 18px;"></i>
+            </button>
+            <div class="faq-answer">
+              Yes. SkillBridge was engineered specifically as an academic capstone portfolio demonstrating clean software engineering principles: modular ES6+ architecture, reactive state management, comprehensive error validation, responsive CSS, and documented analytics algorithms.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Card -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="landing-cta">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Accelerate Your Career Readiness?</h2>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem;">
+            Explore the live dashboard, run an automated gap analysis, and practice technical MCQs with zero setup.
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="./pages/dashboard.html" class="btn btn-primary btn-lg">Launch Demo Dashboard</a>
+            <a href="./pages/login.html" class="btn btn-secondary btn-lg">View Demo Accounts</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="brand-logo" style="margin-bottom: 1rem;">
+              <div class="brand-icon">
+                <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
+              </div>
+              <span>SkillBridge</span>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; max-width: 320px;">
+              Empowering college students and fresh graduates to transition smoothly from university curriculum to production engineering roles.
+            </p>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Career Suite</div>
+            <ul class="footer-links">
+              <li><a href="./pages/dashboard.html" class="footer-link">Live Dashboard</a></li>
+              <li><a href="./pages/skills.html" class="footer-link">Skills Inventory</a></li>
+              <li><a href="./pages/career-analyzer.html" class="footer-link">Gap Analyzer</a></li>
+              <li><a href="./pages/roadmap.html" class="footer-link">Learning Roadmap</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Practice & Work</div>
+            <ul class="footer-links">
+              <li><a href="./pages/projects.html" class="footer-link">Project Portfolio</a></li>
+              <li><a href="./pages/assessments.html" class="footer-link">Assessment Center</a></li>
+              <li><a href="./pages/internships.html" class="footer-link">Internship Explorer</a></li>
+              <li><a href="./pages/admin.html" class="footer-link">Admin Demo Hub</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Account & Demo</div>
+            <ul class="footer-links">
+              <li><a href="./pages/login.html" class="footer-link">Sign In</a></li>
+              <li><a href="./pages/register.html" class="footer-link">Demo Register</a></li>
+              <li><a href="./pages/profile.html" class="footer-link">Student Profile</a></li>
+              <li><a href="./pages/settings.html" class="footer-link">Settings & Reset</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>
+            &copy; 2026 SkillBridge. College Full Stack Java (FSJ) Project Demonstration.
+          </div>
+          <div>
+            Vanilla ES6+ · HTML5 · CSS3 · LocalStorage Architecture
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { Components } from './js/components.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        Components.initTheme();
+        Components.initIcons();
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            item.classList.toggle('active');
+          });
+        });
+
+        // Theme toggle
+        const themeBtn = document.getElementById('landing-theme-toggle');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', () => Components.toggleTheme());
+        }
+
+        // Mobile drawer toggle
+        const menuBtn = document.getElementById('landing-mobile-menu-btn');
+        const drawer = document.getElementById('landing-mobile-drawer');
+        if (menuBtn && drawer) {
+          menuBtn.addEventListener('click', () => {
+            drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

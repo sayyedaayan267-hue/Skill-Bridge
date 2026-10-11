@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Career Dashboard — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Dashboard Content -->
+        <main class="app-content">
+          <!-- Page Title & Role Selector Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading" id="dash-greeting">Welcome back, Alex</h1>
+              <p class="page-title-sub">
+                Here is your current career readiness overview and learning roadmap progress.
+              </p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-surface); padding: 0.35rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Target Role:</span>
+                <select id="target-role-select" class="select" style="padding: 0.2rem 0.5rem; font-size: 0.8125rem; width: auto; background: transparent; border: none; font-weight: 600; color: var(--accent-blue);">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+              <a href="./career-analyzer.html" class="btn btn-outline btn-sm">
+                <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
+                <span>View Full Gap Report</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Career Readiness Score Hero Banner -->
+          <div class="readiness-banner">
+            <div class="readiness-score-dial">
+              <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+                Career Readiness
+              </span>
+              <div class="score-circle-number" id="dash-readiness-score">--</div>
+              <div class="score-target-role" id="dash-target-role-title">Full Stack Developer</div>
+              <div class="score-level-badge" id="dash-readiness-tier">Calculating...</div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="font-size: 1rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+                  <i data-lucide="pie-chart" style="width: 16px; height: 16px; color: var(--accent-blue);"></i>
+                  Readiness Score Breakdown Formula
+                </h3>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">
+                  Weighted multi-factor model
+                </span>
+              </div>
+
+              <div class="readiness-breakdown-grid">
+                <!-- 1. Skills Match (40%) -->
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span>Role Skill Alignment (40%)</span>
+                    <span id="score-breakdown-skills-val" class="tabular-nums font-mono">--%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="score-breakdown-skills-bar" style="width: 0%;"></div>
+                  </div>
+                  <span id="score-breakdown-skills-note" style="font-size: 0.7rem; color: var(--text-muted);">Checking role competencies</span>
+                </div>
+
+                <!-- 2. Project Portfolio (25%) -->
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span>Portfolio Projects (25%)</span>
+                    <span id="score-breakdown-projects-val" class="tabular-nums font-mono">--%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="score-breakdown-projects-bar" style="width: 0%;"></div>
+                  </div>
+                  <span id="score-breakdown-projects-note" style="font-size: 0.7rem; color: var(--text-muted);">Completed repositories & links</span>
+                </div>
+
+                <!-- 3. Technical Assessments (20%) -->
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span>Quiz Performance (20%)</span>
+                    <span id="score-breakdown-assessments-val" class="tabular-nums font-mono">--%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="score-breakdown-assessments-bar" style="width: 0%;"></div>
+                  </div>
+                  <span id="score-breakdown-assessments-note" style="font-size: 0.7rem; color: var(--text-muted);">Assessment average score</span>
+                </div>
+
+                <!-- 4. Learning Roadmap (15%) -->
+                <div class="breakdown-item">
+                  <div class="breakdown-label-row">
+                    <span>Roadmap Completion (15%)</span>
+                    <span id="score-breakdown-roadmap-val" class="tabular-nums font-mono">--%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="score-breakdown-roadmap-bar" style="width: 0%;"></div>
+                  </div>
+                  <span id="score-breakdown-roadmap-note" style="font-size: 0.7rem; color: var(--text-muted);">Milestones completed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Metric Summary Row -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Skills Logged</span>
+                <div class="kpi-icon-box">
+                  <i data-lucide="award" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-skills-total">--</div>
+              <div class="kpi-meta" id="kpi-skills-meta">
+                <span>-- mastered</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Portfolio Projects</span>
+                <div class="kpi-icon-box" style="color: var(--accent-violet); background-color: var(--accent-violet-subtle);">
+                  <i data-lucide="folder-git-2" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-projects-total">--</div>
+              <div class="kpi-meta" id="kpi-projects-meta">
+                <span>-- completed</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Quiz Average</span>
+                <div class="kpi-icon-box" style="color: var(--color-success); background-color: var(--color-success-bg);">
+                  <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-quizzes-average">--%</div>
+              <div class="kpi-meta" id="kpi-quizzes-meta">
+                <span>-- attempts</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Internship Pipeline</span>
+                <div class="kpi-icon-box" style="color: var(--accent-cyan); background-color: var(--accent-cyan-subtle);">
+                  <i data-lucide="briefcase" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpi-internships-active">--</div>
+              <div class="kpi-meta" id="kpi-internships-meta">
+                <span>-- applications sent</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row (Chart.js) -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="pie-chart" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                  Skill Distribution by Category
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Recorded competencies</span>
+              </div>
+              <div class="chart-canvas-wrapper">
+                <canvas id="skillsDistributionChart"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="bar-chart-2" style="width: 18px; height: 18px; color: var(--accent-violet);"></i>
+                  Weekly Learning Activity
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Study hours logged</span>
+              </div>
+              <div class="chart-canvas-wrapper">
+                <canvas id="weeklyActivityChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Grid: Recommendations & Deadlines -->
+          <div class="dashboard-split-grid" style="margin-bottom: 1.75rem;">
+            <!-- Recommended Next Actions -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="zap" style="width: 18px; height: 18px; color: var(--color-warning);"></i>
+                  Recommended Next Actions
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Target role gap closures</span>
+              </div>
+              <div id="recommended-actions-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Dynamically populated from gap analyzer -->
+              </div>
+            </div>
+
+            <!-- Upcoming Learning Deadlines -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="calendar" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                  Upcoming Roadmap Deadlines
+                </h3>
+                <a href="./roadmap.html" class="text-accent" style="font-size: 0.75rem; font-weight: 600;">View All &rarr;</a>
+              </div>
+              <div id="upcoming-deadlines-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Feed & Quick Actions Row -->
+          <div class="dashboard-split-grid">
+            <!-- Recent Activity Feed -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i data-lucide="activity" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                  Recent Activity Feed
+                </h3>
+                <span class="text-muted" style="font-size: 0.75rem;">Live event stream</span>
+              </div>
+              <div class="activity-feed-list" id="activity-feed-container">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Quick Action Hub -->
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="card-header">
+                  <h3 class="card-title">
+                    <i data-lucide="compass" style="width: 18px; height: 18px; color: var(--accent-cyan);"></i>
+                    Quick Actions
+                  </h3>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                  Accelerate your profile by taking high-impact actions right now.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 0.625rem;">
+                  <a href="./assessments.html" class="btn btn-primary w-full" style="justify-content: flex-start; gap: 0.75rem;">
+                    <i data-lucide="check-square" style="width: 16px; height: 16px;"></i>
+                    <span>Take a Technical MCQ Quiz</span>
+                  </a>
+                  <a href="./skills.html?action=new" class="btn btn-secondary w-full" style="justify-content: flex-start; gap: 0.75rem;">
+                    <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
+                    <span>Log a New Technical Skill</span>
+                  </a>
+                  <a href="./projects.html?action=new" class="btn btn-secondary w-full" style="justify-content: flex-start; gap: 0.75rem;">
+                    <i data-lucide="folder-plus" style="width: 16px; height: 16px;"></i>
+                    <span>Add Project to Portfolio</span>
+                  </a>
+                  <a href="./roadmap.html?action=new" class="btn btn-secondary w-full" style="justify-content: flex-start; gap: 0.75rem;">
+                    <i data-lucide="calendar-plus" style="width: 16px; height: 16px;"></i>
+                    <span>Schedule Learning Milestone</span>
+                  </a>
+                </div>
+              </div>
+
+              <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                <span>College Demo Session</span>
+                <a href="./settings.html" class="text-accent">Settings & Export</a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Page Specific Script -->
+    <script type="module" src="../js/pages/dashboard.js"></script>
+  </body>
+</html>

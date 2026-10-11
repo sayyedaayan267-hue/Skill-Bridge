@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Demo Profile — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.12), transparent 50%), var(--bg-canvas); padding: 1.5rem;">
+    
+    <div style="width: 100%; max-width: 480px;">
+      <!-- Brand Header -->
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <a href="../index.html" style="display: inline-flex; align-items: center; gap: 0.625rem; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">
+          <div style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: #fff;">
+            <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>SkillBridge</span>
+        </a>
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.5rem;">
+          Create a student profile to track skills & career milestones
+        </p>
+      </div>
+
+      <!-- Register Form Card -->
+      <div class="card" style="box-shadow: var(--shadow-lg);">
+        <form id="register-form">
+          <div id="register-error-alert" style="display: none; padding: 0.75rem; background-color: var(--color-danger-bg); border: 1px solid var(--color-danger); border-radius: var(--radius-sm); color: var(--color-danger); font-size: 0.8125rem; margin-bottom: 1rem;"></div>
+
+          <div class="form-group">
+            <label class="form-label required" for="name">Full Name</label>
+            <div class="input-icon-wrapper">
+              <i data-lucide="user" class="input-icon" style="width: 16px; height: 16px;"></i>
+              <input type="text" id="name" class="input" placeholder="e.g. Jordan Lee" required autocomplete="name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="email">Student Email Address</label>
+            <div class="input-icon-wrapper">
+              <i data-lucide="mail" class="input-icon" style="width: 16px; height: 16px;"></i>
+              <input type="email" id="email" class="input" placeholder="jordan.lee@university.edu" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="password">Password (Minimum 6 characters)</label>
+            <div class="input-icon-wrapper">
+              <i data-lucide="lock" class="input-icon" style="width: 16px; height: 16px;"></i>
+              <input type="password" id="password" class="input" placeholder="Create demo password" required autocomplete="new-password" />
+              <button type="button" class="input-action-btn" id="toggle-password-btn" aria-label="Toggle password visibility">
+                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="confirm-password">Confirm Password</label>
+            <div class="input-icon-wrapper">
+              <i data-lucide="lock" class="input-icon" style="width: 16px; height: 16px;"></i>
+              <input type="password" id="confirm-password" class="input" placeholder="Repeat demo password" required autocomplete="new-password" />
+            </div>
+          </div>
+
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.4;">
+            <i data-lucide="shield" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i>
+            Demonstration Mode: Passwords and profile records are stored locally on your device in LocalStorage.
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full" style="padding: 0.75rem; font-size: 0.9375rem;">
+            <span>Create Profile & Launch</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </button>
+        </form>
+
+        <div style="margin-top: 1.5rem; text-align: center; font-size: 0.8125rem; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: 1.25rem;">
+          Already have an account? <a href="./login.html" class="text-accent" style="font-weight: 600;">Sign in to existing profile</a>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="../index.html" style="font-size: 0.8125rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.35rem;">
+          <i data-lucide="chevron-left" style="width: 14px; height: 14px;"></i>
+          Back to SkillBridge Home
+        </a>
+      </div>
+    </div>
+
+    <script type="module">
+      import { AuthDemo } from '../js/auth-demo.js';
+      import { Components } from '../js/components.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        Components.initTheme();
+        Components.initIcons();
+
+        const form = document.getElementById('register-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const errorAlert = document.getElementById('register-error-alert');
+        const toggleBtn = document.getElementById('toggle-password-btn');
+
+        toggleBtn.onclick = () => {
+          const isPassword = passwordInput.type === 'password';
+          passwordInput.type = isPassword ? 'text' : 'password';
+          confirmPasswordInput.type = isPassword ? 'text' : 'password';
+          toggleBtn.querySelector('i')?.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+          Components.initIcons();
+        };
+
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          errorAlert.style.display = 'none';
+
+          const result = AuthDemo.register({
+            name: nameInput.value,
+            email: emailInput.value,
+            password: passwordInput.value,
+            confirmPassword: confirmPasswordInput.value
+          });
+
+          if (result.success) {
+            Components.showToast(`Welcome to SkillBridge, ${result.user.userName}!`, 'success');
+            setTimeout(() => {
+              window.location.href = './dashboard.html';
+            }, 500);
+          } else {
+            errorAlert.textContent = result.message;
+            errorAlert.style.display = 'block';
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

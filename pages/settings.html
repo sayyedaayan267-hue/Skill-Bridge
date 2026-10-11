@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings & Data Management — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Settings Content -->
+        <main class="app-content" style="max-width: 900px;">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Settings & Data Management</h1>
+              <p class="page-title-sub">
+                Configure application preferences, export JSON backups, and manage demonstration state.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 1: Appearance & Theme -->
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i data-lucide="palette" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                Appearance & Theme
+              </h3>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border-subtle);">
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.9375rem;">Color Scheme</strong>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                  Choose between high-contrast Deep Navy Dark Mode and crisp Light Mode.
+                </p>
+              </div>
+
+              <div class="filter-tabs">
+                <button class="filter-tab" id="theme-btn-dark">
+                  <i data-lucide="moon" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                  <span>Dark</span>
+                </button>
+                <button class="filter-tab" id="theme-btn-light">
+                  <i data-lucide="sun" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i>
+                  <span>Light</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem;">
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.9375rem;">In-App Deadline Reminders</strong>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                  Show toast alerts for upcoming roadmap milestones when navigating the platform.
+                </p>
+              </div>
+
+              <label style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                <input type="checkbox" id="setting-notifications-toggle" checked style="opacity: 0; width: 0; height: 0;" />
+                <span id="toggle-slider" style="position: absolute; cursor: pointer; inset: 0; background-color: var(--accent-blue); border-radius: 24px; transition: 0.2s;"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 2: Data Backup & Portability (JSON Export & Import) -->
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i data-lucide="database" style="width: 18px; height: 18px; color: var(--accent-violet);"></i>
+                Data Backup & Portability
+              </h3>
+              <span class="text-muted" style="font-size: 0.75rem;">Local JSON schemas</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-subtle);">
+                <div>
+                  <strong style="color: var(--text-primary); font-size: 0.9375rem;">Export Complete JSON Backup</strong>
+                  <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                    Download an unencrypted JSON archive of all your skills, projects, quiz records, and roadmap tasks.
+                  </p>
+                </div>
+
+                <button class="btn btn-primary btn-sm" id="export-backup-btn">
+                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                  <span>Download Backup (.json)</span>
+                </button>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                  <strong style="color: var(--text-primary); font-size: 0.9375rem;">Restore From JSON Backup</strong>
+                  <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                    Import a previously exported SkillBridge backup file. Validates schema before overwriting.
+                  </p>
+                </div>
+
+                <div>
+                  <input type="file" id="import-file-input" accept=".json" style="display: none;" />
+                  <button class="btn btn-outline btn-sm" id="import-backup-btn">
+                    <i data-lucide="upload" style="width: 14px; height: 14px;"></i>
+                    <span>Select JSON File</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Reset Demo State (Danger Zone) -->
+          <div class="card" style="border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.03);">
+            <div class="card-header">
+              <h3 class="card-title" style="color: var(--color-danger);">
+                <i data-lucide="alert-triangle" style="width: 18px; height: 18px; color: var(--color-danger);"></i>
+                Demonstration State Management
+              </h3>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <strong style="color: var(--text-primary); font-size: 0.9375rem;">Reset All Data to Factory Defaults</strong>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.2rem; max-width: 540px;">
+                  Restores default demo student profile (Alex Rivera), 9 skills, 6 projects, 32 MCQs, and 10 internships. Useful before starting a fresh presentation.
+                </p>
+              </div>
+
+              <button class="btn btn-danger btn-sm" id="reset-factory-btn">
+                <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i>
+                <span>Reset Demo State</span>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/settings.js"></script>
+  </body>
+</html>

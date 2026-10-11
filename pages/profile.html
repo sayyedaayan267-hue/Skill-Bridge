@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Profile — SkillBridge</title>
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation Container -->
+      <div id="app-sidebar-placeholder"></div>
+
+      <!-- Main Viewport -->
+      <div class="main-wrapper">
+        <!-- Top App Header Container -->
+        <div id="app-header-placeholder"></div>
+
+        <!-- Profile Content -->
+        <main class="app-content">
+          <!-- Page Title Strip -->
+          <div class="page-title-strip">
+            <div>
+              <h1 class="page-title-heading">Student Profile & Career Goals</h1>
+              <p class="page-title-sub">
+                Manage your academic credentials, recruiter headline, and external developer links.
+              </p>
+            </div>
+          </div>
+
+          <!-- Profile Overview Hero Card -->
+          <div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated)); border-color: var(--border-strong);">
+            <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+              <div id="profile-avatar-display" style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet)); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 800; color: #ffffff; flex-shrink: 0; box-shadow: var(--shadow-md);">
+                AR
+              </div>
+              <div style="flex: 1;">
+                <h2 id="profile-display-name" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.2rem;">Alex Rivera</h2>
+                <div id="profile-display-headline" style="font-size: 0.9375rem; color: var(--accent-blue); font-weight: 600; margin-bottom: 0.35rem;">
+                  Computer Science Senior & Aspiring Full Stack Engineer
+                </div>
+                <div class="meta-list">
+                  <span id="profile-display-email">alex.rivera@university.edu</span>
+                  <span class="meta-separator">·</span>
+                  <span id="profile-display-education">B.S. in Computer Science</span>
+                </div>
+              </div>
+              <div>
+                <a href="./projects.html?tab=preview" class="btn btn-outline btn-sm">
+                  <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                  <span>View Public Portfolio</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Edit Form -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: flex-start;" id="profile-layout-grid">
+            <div class="card">
+              <div class="card-header" style="margin-bottom: 1.5rem;">
+                <h3 class="card-title">
+                  <i data-lucide="user-check" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
+                  Edit Professional Details
+                </h3>
+              </div>
+
+              <form id="profile-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label required" for="prof-name">Full Name</label>
+                    <input type="text" id="prof-name" class="input" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required" for="prof-email">Email Address</label>
+                    <input type="email" id="prof-email" class="input" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required" for="prof-headline">Professional Recruiter Headline</label>
+                  <input type="text" id="prof-headline" class="input" placeholder="e.g. CS Senior & Full Stack Engineer" required />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label required" for="prof-education">Education / Degree</label>
+                    <input type="text" id="prof-education" class="input" placeholder="e.g. B.S. in Computer Science (2026)" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required" for="prof-target-role">Primary Target Role</label>
+                    <select id="prof-target-role" class="select" required>
+                      <!-- Dynamically populated from State roles -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required" for="prof-bio">Bio & Career Objectives</label>
+                  <textarea id="prof-bio" class="textarea" rows="4" placeholder="Summarize your background, interests, and target internship roles..." required></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="prof-github">GitHub Profile URL</label>
+                    <div class="input-icon-wrapper">
+                      <i data-lucide="github" class="input-icon" style="width: 16px; height: 16px;"></i>
+                      <input type="url" id="prof-github" class="input" placeholder="https://github.com/your-username" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="prof-linkedin">LinkedIn Profile URL</label>
+                    <div class="input-icon-wrapper">
+                      <i data-lucide="linkedin" class="input-icon" style="width: 16px; height: 16px;"></i>
+                      <input type="url" id="prof-linkedin" class="input" placeholder="https://linkedin.com/in/your-profile" />
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+                    <span>Save Profile Changes</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Profile Summary / Skills Snapshot -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <div class="card">
+                <div class="card-header">
+                  <h4 style="font-size: 1rem; color: var(--text-primary);">Skills Snapshot</h4>
+                  <a href="./skills.html" class="text-accent" style="font-size: 0.75rem;">Manage &rarr;</a>
+                </div>
+                <div id="profile-skills-summary" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+              <div class="card" style="background: var(--bg-surface-elevated);">
+                <h4 style="font-size: 0.9375rem; color: var(--text-primary); margin-bottom: 0.5rem;">
+                  Privacy & Data Handling
+                </h4>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.5;">
+                  SkillBridge stores your demonstration data entirely within your browser's LocalStorage. Private credentials are never transmitted to external third-party tracking services.
+                </p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module" src="../js/pages/profile.js"></script>
+  </body>
+</html>
